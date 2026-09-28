@@ -5,7 +5,7 @@
 
 backend:
   name: git-gateway
-  repo: TUO-UTENTE-GITHUB/TUO-REPOSITORY # es. giulialaureti/portfolio-giulia
+  repo: Giulialaureti/portfolio-giulia
   branch: main
   identity_url: https://auth.decapbridge.com/sites/TUO-SITE-ID-DECAPBRIDGE
   gateway_url: https://gateway.decapbridge.com
