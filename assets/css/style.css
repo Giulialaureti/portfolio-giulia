@@ -862,12 +862,12 @@ h1 + .lede, h2 + .lede, h1 + p, h2 + p { margin-top: var(--space-3); }
   background: var(--accent);
 }
 .section-dark .value-areas-compact .value-area { box-shadow: none; border: 1px solid rgba(250, 250, 255, 0.14); }
-/* Past 900px, .profile-grid moves these cards into their own column
-   beside the text — one that (even accounting for the fixed sidebar from
-   960px and the wider padding past 1100px) never quite gives two-up cards
-   enough width for their titles, wrapping them onto two or three cramped
-   lines. A single column keeps every title on one line at any width. */
-@media (min-width: 900px) {
+/* Between 900 and 1280px, .profile-grid's cards column (0.85fr of .wrap,
+   further squeezed by the fixed sidebar from 960px) is too narrow for
+   two-up cards, cramming titles onto three lines. A single column keeps
+   every title readable there. Past 1280px the column is wide enough for
+   the intended 2x2 grid again. */
+@media (min-width: 900px) and (max-width: 1279px) {
   .profile-grid .value-areas-compact { grid-template-columns: 1fr; }
 }
 
