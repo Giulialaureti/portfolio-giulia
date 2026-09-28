@@ -1,14 +1,23 @@
-# Pannello di gestione contenuti (Decap CMS).
-#
-# Da completare dopo aver creato il repository GitHub e l'account DecapBridge
-# (vedi le istruzioni ricevute da Claude): sostituire i due segnaposto qui sotto.
+# Pannello di gestione contenuti (Decap CMS), autenticazione via DecapBridge.
 
 backend:
   name: git-gateway
   repo: Giulialaureti/portfolio-giulia
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/TUO-SITE-ID-DECAPBRIDGE
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/7a0e794a-eecf-46cc-9328-64ad747bb74a/pkce
+  auth_token_endpoint: /sites/7a0e794a-eecf-46cc-9328-64ad747bb74a/token
   gateway_url: https://gateway.decapbridge.com
+
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+site_url: https://giulialaureti.netlify.app
 
 media_folder: "assets/img/blog"
 public_folder: "/assets/img/blog"
