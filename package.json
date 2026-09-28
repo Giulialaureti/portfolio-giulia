@@ -1,0 +1,11 @@
+{
+  "name": "portfolio-giulia",
+  "private": true,
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve --port=8090"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

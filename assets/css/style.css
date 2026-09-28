@@ -1,0 +1,1217 @@
+/* ==========================================================================
+   Giulia Laureti — Portfolio
+   Sistema: voce personale in un grottesco moderno (Hanken Grotesk) + struttura netta (Manrope).
+   ========================================================================== */
+
+/* ---- Fonts (self-hosted, variable) ---- */
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/Hanken-normal.woff2") format("woff2-variations"),
+       url("../fonts/Hanken-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/Hanken-italic.woff2") format("woff2-variations"),
+       url("../fonts/Hanken-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/Manrope-normal.woff2") format("woff2-variations"),
+       url("../fonts/Manrope-normal.woff2") format("woff2");
+}
+
+/* ---- Design tokens ---- */
+:root {
+  --porcelain: #FAFAFF;
+  --white: #FFFFFF;
+  --graphite: #30343F;
+  --lavender: #E4D9FF;
+  --lavender-soft: #EFE9FF;
+  --indigo: #273469;
+  --midnight: #1E2749;
+  --lime: #D6F26B;
+
+  /* Semantic tokens: these are the ones components use, so the whole site
+     can re-theme by redefining them once (see the dark theme below) rather
+     than touching every rule. Palette colors above stay constant. */
+  --bg: var(--porcelain);
+  --bg-contrast: var(--midnight);
+  --surface: var(--white);
+  --surface-tint: var(--lavender-soft);
+  --text: var(--graphite);
+  --ink: var(--midnight);
+  --accent: var(--indigo);
+  --accent-surface: var(--indigo);
+  --accent-surface-hover: var(--midnight);
+  --on-accent-surface: var(--porcelain);
+  --border: rgba(48, 52, 63, 0.12);
+  --border-strong: rgba(48, 52, 63, 0.2);
+  --sidebar-bg: rgba(250, 250, 255, 0.92);
+  --aurora-1: 0.38;
+  --aurora-2: 0.22;
+
+  --font-display: "Hanken Grotesk", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-sans: "Manrope", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1.25rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --space-7: 6.5rem;
+  --space-8: 9rem;
+
+  --content-max: 80rem;
+  --measure: 38rem;
+  --sidebar-w: 16rem;
+
+  --radius: 8px;
+  --radius-sm: 4px;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --dur: .5s;
+
+  color-scheme: light;
+}
+
+/* Dark theme: applied when the system prefers dark (and the user hasn't
+   explicitly chosen light), or when the user's own choice is stored as
+   data-theme="dark" on <html> (see assets/js/main.js). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121214;
+    --bg-contrast: var(--surface);
+    --surface: #1D1D22;
+    --surface-tint: #26242E;
+    --text: #E3E4F2;
+    --ink: #F5F3FF;
+    --accent: var(--lavender);
+    --accent-surface: var(--lavender);
+    --accent-surface-hover: #CBB8FF;
+    --on-accent-surface: var(--midnight);
+    --border: rgba(255, 255, 255, 0.12);
+    --border-strong: rgba(255, 255, 255, 0.2);
+    --sidebar-bg: rgba(18, 18, 20, 0.85);
+    --aurora-1: 0.27;
+    --aurora-2: 0.15;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121214;
+  --bg-contrast: var(--surface);
+  --surface: #1D1D22;
+  --surface-tint: #26242E;
+  --text: #E3E4F2;
+  --ink: #F5F3FF;
+  --accent: var(--lavender);
+  --accent-surface: var(--lavender);
+  --accent-surface-hover: #CBB8FF;
+  --on-accent-surface: var(--midnight);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --sidebar-bg: rgba(18, 18, 20, 0.85);
+  --aurora-1: 0.27;
+  --aurora-2: 0.15;
+  color-scheme: dark;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; height: auto; }
+svg { display: block; }
+
+/* ---- Ambient background: a soft lilac glow that follows the cursor
+   (smoothed, not snapped, so it stays delicate), plus a second field that
+   drifts on its own for a little extra depth (see main.js for --cx/--cy) ---- */
+@property --cx { syntax: '<percentage>'; inherits: true; initial-value: 78%; }
+@property --cy { syntax: '<percentage>'; inherits: true; initial-value: 22%; }
+:root { transition: --cx 0.45s var(--ease), --cy 0.45s var(--ease); }
+
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-4%, -3%) scale(1.06); }
+}
+body::before, body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+}
+body::before {
+  /* inset:0 so --cx/--cy (percentages of the viewport, set in main.js) land
+     exactly where the cursor is, instead of being skewed by an oversized box */
+  inset: 0;
+  background: radial-gradient(34rem circle at var(--cx) var(--cy), rgba(228, 217, 255, var(--aurora-1, 0.34)) 0%, rgba(228, 217, 255, 0) 70%);
+}
+body::after {
+  inset: -10%;
+  background: radial-gradient(28rem circle at 10% 88%, rgba(228, 217, 255, var(--aurora-2, 0.2)) 0%, rgba(228, 217, 255, 0) 68%);
+  animation: aurora-drift-b 36s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+  :root { transition: none; }
+}
+a { color: inherit; }
+ul, ol { padding: 0; margin: 0; list-style: none; }
+h1, h2, h3, h4, p, figure, blockquote { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, textarea { font: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Focus & accessibility ---- */
+a, button, input, textarea, [tabindex] { outline-offset: 3px; }
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -60px;
+  background: var(--midnight);
+  color: var(--porcelain);
+  padding: 0.9em 1.4em;
+  z-index: 200;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: top var(--dur) var(--ease);
+  border-radius: var(--radius-sm);
+}
+.skip-link:focus {
+  top: var(--space-2);
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ---- Layout helpers ---- */
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+@media (min-width: 700px) { .wrap { padding-inline: var(--space-5); } }
+@media (min-width: 1100px) { .wrap { padding-inline: var(--space-6); } }
+
+.section { padding-block: var(--space-6); border-top: 1px solid var(--border); }
+@media (min-width: 700px) { .section { padding-block: var(--space-7); } }
+
+.section-dark {
+  background: var(--bg-contrast);
+  color: var(--porcelain);
+  border-top: 0;
+}
+.divider {
+  border: 0;
+  border-top: 1px solid var(--border-strong);
+  margin: 0;
+}
+.section-dark .divider { border-top-color: rgba(250,250,255,0.18); }
+
+/* ---- Typography ---- */
+h1, h2, h3, h4 { font-family: var(--font-sans); font-weight: 800; color: var(--ink); line-height: 1.14; letter-spacing: -0.02em; }
+.section-dark h1, .section-dark h2, .section-dark h3 { color: var(--porcelain); }
+
+h1 { font-size: clamp(2.3rem, 4.6vw + 1rem, 4rem); }
+h2 { font-size: clamp(1.7rem, 2.6vw + 1rem, 2.5rem); }
+h3 { font-size: clamp(1.3rem, 1.2vw + 1rem, 1.65rem); }
+h4 { font-size: 1.15rem; font-weight: 700; }
+
+/* Personal-voice headings: hero statements, written like a note to the reader */
+.hand, .hero-content h1, .profile-hero-head h1, .error-page h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.lede {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.1rem, 0.9vw + 1rem, 1.3rem);
+  line-height: 1.55;
+  color: var(--text);
+  max-width: var(--measure);
+}
+.section-dark .lede { color: var(--lavender); }
+
+p { max-width: var(--measure); }
+p + p { margin-top: 1.1em; }
+.measure-wide { max-width: 46rem; }
+/* The section intro lede should read at the same width as the heading it
+   follows, not shrink to the generic paragraph measure. */
+.section-head p.measure-wide { max-width: none; width: 100%; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.section-dark .eyebrow { color: var(--lavender); }
+
+.meta {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.75;
+}
+.section-dark .meta { color: var(--porcelain); opacity: 0.7; }
+.section-dark p { color: rgba(250, 250, 255, 0.78); }
+
+/* Highlighter-marker accent for key phrases, instead of italics.
+   Lime and lilac alternate page by page (see .hl-lilac) so the two accent
+   colors read as a deliberate pair rather than one repeated everywhere. */
+em, .hl, mark.hl {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--midnight);
+  background: var(--lime);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.section-dark em, .section-dark .hl, .section-dark mark.hl {
+  color: var(--porcelain);
+  background: rgba(214, 242, 107, 0.22);
+}
+mark.hl.hl-lilac {
+  color: var(--midnight);
+  background: var(--lavender-soft);
+}
+.section-dark mark.hl.hl-lilac {
+  color: var(--porcelain);
+  background: rgba(228, 217, 255, 0.22);
+}
+
+.link-underline {
+  display: inline-block;
+  border-bottom: 1px solid currentColor;
+  padding: 0.3em 0 0.15em;
+  text-decoration: none;
+  transition: opacity var(--dur) var(--ease);
+}
+.link-underline:hover { opacity: 0.65; }
+
+/* Small arrow after any link that leaves the normal page flow: downloads,
+   mailto, or an external destination like LinkedIn. */
+a[download]::after,
+a[href^="mailto:"]::after,
+a[href*="linkedin.com"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: 0.35em;
+  vertical-align: 0.02em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='7' y1='17' x2='17' y2='7'/%3E%3Cpolyline points='8 7 17 7 17 16'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='7' y1='17' x2='17' y2='7'/%3E%3Cpolyline points='8 7 17 7 17 16'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.95em 1.6em;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease);
+  border: 1.5px solid transparent;
+  /* Deliberately NOT white-space:nowrap: forcing that guarantees the label
+     can never wrap, but at larger OS/browser text-size settings that only
+     trades a wrapped pill for one that overflows its column and gets
+     silently clipped — worse, and it drags ancestor grid/flex tracks wider
+     with it (see the min-width:0 fix on their children below). Letting the
+     label wrap is the correct accessible fallback; the layout fixes below
+     keep it from happening at normal text sizes. */
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent-surface); color: var(--on-accent-surface); }
+.btn-primary:hover { background: var(--accent-surface-hover); color: var(--on-accent-surface); }
+.btn-outline { border-color: currentColor; color: var(--accent); }
+.btn-outline:hover { background: var(--accent-surface); color: var(--on-accent-surface); }
+.section-dark .btn-outline { color: var(--porcelain); }
+.section-dark .btn-outline:hover { background: var(--porcelain); color: var(--midnight); }
+
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+/* A left-aligned row of a pill button plus a text link reads unevenly once it
+   wraps to its own lines on a phone; stack and center both instead. */
+@media (max-width: 699px) {
+  .actions { flex-direction: column; align-items: center; }
+}
+
+/* ---- Sidebar navigation ---- */
+.site-sidebar {
+  background: var(--sidebar-bg);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-2) var(--space-3);
+}
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.4rem;
+  gap: var(--space-3);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.brand img { width: 30px; height: 30px; flex-shrink: 0; }
+/* The full name always stays on screen, in full — never clipped or
+   ellipsized. Below this width, the fixed-size theme/menu buttons next to
+   it would otherwise leave too little room, so the name (and mark) shrink
+   a bit instead; comfortably fits down to real phone widths (~320px) with
+   room to spare. */
+@media (max-width: 480px) {
+  .brand { font-size: 0.95rem; gap: 0.4em; }
+  .brand img { width: 24px; height: 24px; }
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.main-nav a {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.3em 0;
+  transition: color var(--dur) var(--ease);
+}
+.main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--accent); }
+
+.sidebar-foot { display: none; }
+
+.sidebar-top-actions { display: flex; align-items: center; gap: var(--space-1); flex-shrink: 0; }
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  color: var(--ink);
+  transition: background var(--dur) var(--ease);
+}
+/* Keeps the visible button compact (so it doesn't crowd the logo next to
+   it) while still giving it a full 44px tap target, per the accessible
+   minimum — the extra hit area is invisible, expanding only the click
+   zone, not the circle itself. */
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+.theme-toggle:hover { background: var(--surface-tint); }
+.theme-toggle svg { width: 1.15rem; height: 1.15rem; }
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: block; }
+}
+
+/* Two bars, each centered on the button's own midpoint and offset only via
+   transform: rotating both onto that shared center always meets in a
+   perfect X, regardless of the button's own display mode (flex/block) or
+   any surrounding layout — unlike spacing three bars apart with margin and
+   translating them a fixed distance, which silently breaks if anything
+   changes how those margins collapse. */
+.menu-toggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+.menu-toggle .bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform var(--dur) var(--ease);
+}
+.menu-toggle .bar:nth-child(1) { transform: translate(-50%, -50%) translateY(-4px); }
+.menu-toggle .bar:nth-child(2) { transform: translate(-50%, -50%) translateY(4px); }
+.menu-toggle[aria-expanded="true"] .bar:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .bar:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+
+@media (max-width: 959px) {
+  .main-nav {
+    position: absolute;
+    inset: 100% 0 auto 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: var(--space-2) var(--space-3) var(--space-4);
+    display: none;
+  }
+  .main-nav.open { display: flex; }
+  .main-nav a { width: 100%; padding: 0.85em 0; border-bottom: 1px solid var(--border); }
+}
+
+@media (min-width: 1440px) {
+  :root { --content-max: 92rem; }
+}
+
+@media (min-width: 960px) {
+  body { padding-left: var(--sidebar-w); }
+  .site-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+    padding: var(--space-5) var(--space-4);
+  }
+  .sidebar-top { flex-direction: column; align-items: flex-start; gap: var(--space-6); min-height: 0; }
+  .menu-toggle { display: none; }
+  .main-nav {
+    position: static;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  .main-nav a { width: auto; border-bottom: 0; padding: 0; font-size: 1rem; }
+  .sidebar-foot { display: block; font-size: 0.85rem; color: var(--text); opacity: 0.8; }
+  .sidebar-foot a { text-decoration: none; word-break: break-word; white-space: nowrap; }
+  .sidebar-foot a:hover { color: var(--accent); }
+}
+
+/* ---- Hero ---- */
+.hero {
+  padding-block: var(--space-5) var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 700px) {
+  .hero { padding-block: var(--space-7) var(--space-6); }
+}
+.hero-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: 1.15fr 0.85fr; align-items: end; }
+}
+
+/* Profile teaser: on narrow screens the cards sit between the intro text and
+   the actions, so the actions close the section; on wide screens the cards
+   move beside the text instead, spanning both of its rows. */
+.profile-grid {
+  grid-template-areas: "text" "cards" "actions";
+}
+.profile-grid-text { grid-area: text; }
+.profile-grid .value-areas { grid-area: cards; }
+.profile-grid .actions { grid-area: actions; margin-top: 0; }
+@media (min-width: 900px) {
+  .profile-grid {
+    grid-template-areas: "text cards" "actions cards";
+  }
+}
+.hero-content { max-width: 56rem; }
+.hero h1 { max-width: 24ch; }
+/* Manual line breaks are tuned for wide screens; below that, natural reflow
+   keeps the lines from landing unevenly (e.g. one very short line). */
+@media (max-width: 699px) {
+  .hero h1 .br-wide { display: none; }
+}
+
+/* Consistent rhythm wherever a lede/paragraph follows a heading, or actions follow text */
+h1 + .lede, h2 + .lede, h1 + p, h2 + p { margin-top: var(--space-3); }
+.lede + .actions, p + .actions { margin-top: var(--space-4); }
+
+/* ---- Section headings row ---- */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+/* ---- Project index (homepage) ---- */
+.project-list { display: flex; flex-direction: column; }
+.project-entry {
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--border-strong);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+@media (min-width: 700px) {
+  .project-entry { padding-block: var(--space-6); }
+}
+.project-entry:last-child { border-bottom: 1px solid var(--border-strong); }
+.project-entry-grid {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .project-entry-grid { grid-template-columns: 6rem 1.1fr 0.9fr; }
+}
+/* Sans, not the display face: Hanken Grotesk's "1" has an overlapping-contour
+   construction that leaves a visible seam when only its outline is stroked. */
+.project-index {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--accent);
+  align-self: start;
+}
+.project-entry-figure {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-tint);
+}
+.project-entry-figure img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.7s var(--ease);
+}
+.project-entry:hover .project-entry-figure img,
+.project-entry:focus-visible .project-entry-figure img { transform: scale(1.035); }
+.project-entry-body .meta { display: block; margin-bottom: var(--space-2); }
+.project-entry-body h3 { margin-bottom: 0.5em; font-size: clamp(1.3rem, 1.2vw + 1rem, 1.7rem); }
+.project-entry-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5em 1em; margin-top: var(--space-2);
+}
+.project-entry-tags span {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  opacity: 0.82;
+}
+.project-entry-cta {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: var(--space-2);
+}
+.project-entry-grid > :last-child { grid-column: 2 / -1; }
+@media (min-width: 860px) {
+  .project-entry-grid > :last-child { grid-column: auto; }
+}
+
+/* compact secondary entry (ASIERI) */
+.compact-entry {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+  padding-block: var(--space-5);
+}
+@media (min-width: 700px) {
+  .compact-entry { grid-template-columns: 1fr 1.6fr; }
+}
+.compact-entry img { border-radius: var(--radius); aspect-ratio: 16/10; object-fit: cover; }
+.compact-entry .meta { display: block; margin-bottom: var(--space-2); }
+.compact-entry h3 { margin-bottom: 0.5em; }
+
+/* ---- Project gallery (standalone Progetti page): image-led, minimal —
+   a cropped-to-uniform preview and a title, nothing else competing with it. */
+.project-gallery {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+@media (min-width: 620px) { .project-gallery { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .project-gallery { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); } }
+.project-tile { display: block; text-decoration: none; color: inherit; }
+.project-tile-figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-tint);
+}
+.project-tile-figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.project-tile:hover .project-tile-figure img,
+.project-tile:focus-visible .project-tile-figure img { transform: scale(1.045); }
+.project-tile-body {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.project-tile-body h3 { font-size: 1.1rem; margin: 0; }
+.project-tile-arrow {
+  font-family: var(--font-sans);
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-0.3em);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.project-tile:hover .project-tile-arrow,
+.project-tile:focus-visible .project-tile-arrow { opacity: 1; transform: translateX(0); }
+
+/* ---- Approach steps ---- */
+.steps {
+  display: grid;
+  gap: var(--space-5);
+  counter-reset: step;
+}
+@media (min-width: 760px) {
+  .steps { grid-template-columns: repeat(3, 1fr); }
+}
+.step { border-top: 1px solid var(--border-strong); padding-top: var(--space-3); }
+@media (min-width: 760px) {
+  .step { border-top: 0; padding-top: 0; padding-left: var(--space-4); border-left: 1px solid var(--border-strong); }
+  .step:first-child { border-left: 0; padding-left: 0; }
+}
+.section-dark .step { border-color: rgba(250, 250, 255, 0.22); }
+.step h3 { margin-bottom: 0.5em; }
+.step-number {
+  font-family: var(--font-sans);
+  font-size: 2.2rem;
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--accent);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.section-dark .step-number { -webkit-text-stroke: 1.4px var(--lavender); }
+.step-icon {
+  display: block;
+  width: 2.1rem;
+  height: 2.1rem;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+.step-icon svg { width: 100%; height: 100%; }
+.section-dark .step-icon { color: var(--lavender); }
+
+/* ---- Cards / generic ---- */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+
+/* ---- Skills areas (profile) ---- */
+.value-areas {
+  display: grid;
+  gap: var(--space-4);
+}
+/* Grid/flex items default to a content-based minimum width, which can force a
+   track wider than it has room for and clip its neighbour on narrow screens;
+   these containers should always be free to shrink to their track's width. */
+.value-areas > .value-area,
+.hero-grid > *,
+.project-entry-grid > *,
+.compact-entry > *,
+.contact-grid > *,
+.actions > *,
+.steps > .step {
+  min-width: 0;
+}
+@media (min-width: 700px) { .value-areas { grid-template-columns: repeat(2, 1fr); } }
+.value-area {
+  padding: var(--space-4);
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.value-area h3 { font-size: 1.2rem; margin-bottom: 0.5em; }
+.value-area p { font-size: 0.98rem; }
+
+/* Compact variant: a title-only preview (full descriptions live on the Profilo page).
+   A quiet card with a short accent rule under the title, rather than a heavy
+   top border or a numbered index. */
+/* Kept two-up at every width (rather than stacking full-bleed below 700px)
+   so each card keeps its compact, roughly-square proportions on phones too. */
+.value-areas-compact { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
+.value-areas-compact .value-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 6.5rem;
+  padding: var(--space-2);
+  background: var(--surface);
+  border-left: 0;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 24px rgba(39,52,105,0.08);
+  text-align: center;
+  /* Without this, the card's own content-based minimum width (a title's
+     longest unbreakable word) can force its 1fr grid track wider than the
+     viewport, pushing the second column off the right edge entirely
+     instead of just wrapping — the narrow-phone version of the same
+     min-width:0 fix already applied to the other grids below. */
+  min-width: 0;
+}
+.value-areas-compact .value-area h3 {
+  min-width: 0;
+  margin-bottom: 0;
+  padding-bottom: var(--space-2);
+  position: relative;
+  font-size: 0.92rem;
+}
+/* The narrowest phones (~320–360px) leave each card too little width at
+   1rem for its longest title ("Formazione e facilitazione") to fit in two
+   lines; a touch smaller keeps every card's title to two lines everywhere. */
+@media (min-width: 361px) {
+  .value-areas-compact { gap: var(--space-3); }
+  .value-areas-compact .value-area { padding: var(--space-3); }
+  .value-areas-compact .value-area h3 { font-size: 1rem; }
+}
+/* The equal-height cards only need real height once they sit side by side;
+   stacked on narrow screens, a tall fixed minimum is just empty padding. */
+@media (min-width: 700px) {
+  .value-areas-compact { gap: var(--space-4); }
+  .value-areas-compact .value-area { min-height: 11rem; padding: var(--space-4); }
+  .value-areas-compact .value-area h3 { font-size: 1.2rem; }
+}
+.value-areas-compact .value-area h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 1.75rem;
+  height: 2px;
+  background: var(--accent);
+}
+.section-dark .value-areas-compact .value-area { box-shadow: none; border: 1px solid rgba(250, 250, 255, 0.14); }
+/* Past 900px, .profile-grid moves these cards into their own column
+   beside the text — one that (even accounting for the fixed sidebar from
+   960px and the wider padding past 1100px) never quite gives two-up cards
+   enough width for their titles, wrapping them onto two or three cramped
+   lines. A single column keeps every title on one line at any width. */
+@media (min-width: 900px) {
+  .profile-grid .value-areas-compact { grid-template-columns: 1fr; }
+}
+
+/* timeline-free experience list */
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+  display: grid;
+  gap: var(--space-2) var(--space-4);
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--border-strong);
+}
+@media (min-width: 700px) {
+  .exp-item { grid-template-columns: 10rem 1fr; }
+}
+.exp-item:last-child { border-bottom: 1px solid var(--border-strong); }
+.exp-period { font-family: var(--font-sans); font-weight: 700; color: var(--accent); font-size: 0.9rem; }
+.exp-role { font-weight: 700; margin-bottom: 0.2em; }
+.exp-org { opacity: 0.75; font-size: 0.95rem; }
+
+/* ---- Contact ---- */
+.contact-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 800px) {
+  /* A bare 0.8fr can still shrink below the button's comfortable width at
+     the narrow end of this range; minmax gives it a floor. */
+  .contact-grid { grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.8fr); align-items: start; }
+}
+.contact-links { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-4); }
+/* :not(.btn) — this large display-font treatment is for the plain text
+   links here (e.g. "Scrivimi"); without the exclusion it also overrides a
+   .btn's own (much smaller, uppercase) font-size when one sits in the same
+   container, since `.contact-links a` outranks `.btn` on specificity. That
+   silently near-doubled the CV button's font size, which is what was
+   actually forcing it to wrap or overflow — not a lack of room. */
+.contact-links a:not(.btn) { font-family: var(--font-display); font-size: 1.4rem; text-decoration: none; }
+.contact-links a:not(.btn):hover { color: var(--lavender); }
+
+/* ---- Footer ---- */
+.site-footer {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--border-strong);
+}
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+.footer-links { display: flex; gap: var(--space-3); }
+.footer-links a { text-decoration: none; }
+.footer-links a:hover { color: var(--accent); }
+
+/* ==========================================================================
+   Case study pages
+   ========================================================================== */
+.cs-hero { padding-block: var(--space-5) var(--space-4); }
+@media (min-width: 700px) {
+  .cs-hero { padding-block: var(--space-6) var(--space-5); }
+}
+/* Full-width stack: title, subtitle and question read as one column at
+   comfortable line lengths, then a large hero image and the fact sheet
+   each get the whole row instead of being squeezed beside each other. */
+.cs-index {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: clamp(2.25rem, 9vw, 3.5rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.6px var(--accent);
+  margin-bottom: var(--space-4);
+}
+.cs-hero .eyebrow { margin-bottom: var(--space-3); }
+.cs-hero h1 { max-width: 20ch; font-size: clamp(2.1rem, 3.8vw + 1rem, 3.4rem); }
+/* A plain-statement lead-in: the second tier of the hierarchy, between the
+   title and the (smaller) guiding question below it. */
+.cs-subtitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1vw + 1rem, 1.4rem);
+  color: var(--ink);
+  max-width: none;
+  margin-top: var(--space-3);
+}
+/* The anonymization disclaimer inherits the generic `p { max-width: measure }`
+   otherwise, capping it far narrower than the subtitle/question above it. */
+.cs-hero .meta { max-width: none; }
+/* Third tier: a guiding question, used alongside .cs-subtitle, deliberately
+   smaller than it so the two don't compete for the same weight. */
+.cs-question {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.145rem, 0.6vw + 1.025rem, 1.325rem);
+  color: var(--accent);
+  max-width: none;
+  margin-top: var(--space-3);
+}
+/* .cs-figure.cs-hero-image (not just .cs-hero-image) to outrank the generic
+   `figure.cs-figure { margin: 0; }` reset below, which would otherwise zero
+   this back out. */
+.cs-figure.cs-hero-image { margin-top: 4rem; }
+.cs-hero-image img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 32.4rem;
+  margin-inline: auto;
+  border-radius: var(--radius);
+}
+.cs-hero-image figcaption { text-align: left; max-width: 42rem; margin-inline: auto; }
+figure.cs-figure { margin: 0; }
+.cs-figure:not(.cs-hero-image) img { width: 100%; max-width: 42rem; border-radius: var(--radius-sm); }
+figcaption {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.75;
+  margin-top: 0.7em;
+  max-width: var(--measure);
+  text-align: left;
+}
+
+/* A fact sheet of bordered cards rather than a plain definition list, so a
+   trailing partial row (e.g. 5 fields as 3+2) reads as intentional cards
+   rather than a stranded, unstyled line of text. */
+.cs-meta {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1fr;
+  margin-top: var(--space-4);
+}
+@media (min-width: 700px) { .cs-meta { margin-top: 4rem; } }
+@media (min-width: 620px) { .cs-meta { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 860px) { .cs-meta { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+/* Modifier for richer fact sheets (e.g. 7 fields): 4 columns keeps it to two
+   even rows (4+3) instead of three rows with a lonely trailing card. */
+@media (min-width: 860px) { .cs-meta.cs-meta--cols-4 { grid-template-columns: repeat(4, 1fr); } }
+.cs-meta > div {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+@media (min-width: 700px) {
+  .cs-meta > div { padding: var(--space-4); }
+}
+.cs-meta dt {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.6em;
+}
+.cs-meta dd { margin: 0; font-size: 0.98rem; }
+
+.cs-body { display: flex; flex-direction: column; gap: var(--space-5); }
+@media (min-width: 700px) {
+  .cs-body { gap: var(--space-6); }
+}
+.cs-body p,
+.cs-body .lede {
+  max-width: none;
+}
+.cs-body .note-limit {
+  max-width: 52rem;
+}
+.cs-body .callout {
+  max-width: none;
+  margin-top: var(--space-5);
+}
+.cs-block h2 { margin-bottom: var(--space-3); }
+.cs-block h2 + .lede,
+.cs-block h2 + p { margin-top: 0; }
+
+.cs-figure-grid { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+/* Grids of taller screenshots (cs-figure-grid-lg) get more breathing room above
+   than a grid of plain photos, since the images themselves read as heavier. */
+.cs-figure-grid.cs-figure-grid-lg { margin-top: var(--space-5); }
+.cs-figure-grid.cols-2 { grid-template-columns: 1fr; justify-items: start; }
+@media (min-width: 700px) { .cs-figure-grid.cols-2 { grid-template-columns: 1fr 1fr; } }
+/* Sized by height, not width, so two images with different aspect ratios in the
+   same row land at the same height instead of the same width (never cropped:
+   width is capped separately so a tall image still can't overflow its column). */
+.cs-figure-grid .cs-figure img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 15rem;
+  border-radius: var(--radius-sm);
+}
+.cs-figure-grid.cs-figure-grid-lg .cs-figure img { max-height: 19rem; }
+
+/* Dense composites (several small screens packed into one image) need to render
+   smaller than a normal figure, or their packed-in detail looks grainy. */
+.cs-figure.cs-figure-dense img { max-width: 26rem; }
+
+.decision-list { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-4); }
+.decision {
+  display: grid;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-4);
+  background: var(--surface);
+  border-left: 3px solid var(--lavender);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+@media (min-width: 760px) { .decision { grid-template-columns: repeat(3, 1fr); } }
+.decision dt { font-family: var(--font-sans); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); margin-bottom: 0.4em; }
+.decision dd { margin: 0; font-size: 0.96rem; }
+
+/* Single-paragraph decision card: same visual language as .decision, for a
+   title + one flowing paragraph rather than an Evidenza/Scelta/Effetto triplet. */
+.decision-simple-list { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-4); }
+.decision-simple {
+  padding: var(--space-4);
+  background: var(--surface);
+  border-left: 3px solid var(--lavender);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.decision-simple h3 { font-size: 1.1rem; margin-bottom: 0.5em; }
+.decision-simple p { margin: 0; font-size: 0.98rem; max-width: none; }
+
+.callout {
+  border-left: 3px solid var(--accent);
+  padding-left: var(--space-3);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--ink);
+  max-width: var(--measure);
+}
+
+.note-limit {
+  background: var(--surface-tint);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  max-width: var(--measure);
+}
+
+.cs-next {
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--border-strong);
+}
+.cs-next a { text-decoration: none; display: block; }
+.cs-next .eyebrow { margin-bottom: var(--space-2); }
+.cs-next h3 { transition: color var(--dur) var(--ease); }
+.cs-next a:hover h3 { color: var(--accent); }
+
+/* project list on case study end / index reuse */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.5em 0.9em; margin-top: var(--space-3); }
+.tag-row span {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35em 0.8em;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--accent);
+  border-radius: 999px;
+}
+
+/* ---- Ecosystem diagram (Borghi) ---- */
+.ecosystem { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-4); }
+.ecosystem-node {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.9em 1.3em;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 999px;
+  color: var(--ink);
+}
+.ecosystem-arrow { color: var(--accent); font-size: 1.1rem; }
+
+/* ---- Profile page portrait alt ---- */
+.profile-hero { display: flex; flex-direction: column; gap: var(--space-4); }
+.profile-hero-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+@media (min-width: 1100px) {
+  .profile-hero-head { flex-direction: row; justify-content: space-between; }
+}
+.profile-hero-head h1 { max-width: 22ch; }
+.profile-hero-body p { max-width: none; }
+/* Decorative only: skipped on narrow screens, where the space is better spent
+   on the heading and lede rather than a graphic with no informational value.
+   A fixed-size, relatively-positioned slot lets the light/dark variants —
+   different aspect ratios — sit centered in exactly the same spot instead of
+   shifting the shorter one up when it swaps in. */
+.profile-hero-illustration-wrap { display: none; }
+@media (min-width: 1100px) {
+  .profile-hero-illustration-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 22rem;
+    height: 13.5rem;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+}
+.profile-hero-illustration {
+  display: none;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+/* Dark theme swaps in a lighter-on-transparent variant, or the navy line art
+   all but disappears against the dark background. Same dual check as the
+   theme-toggle icons: an explicit choice, or the OS preference when the
+   visitor hasn't overridden it to light. */
+.profile-hero-illustration--light { display: block; }
+:root[data-theme="dark"] .profile-hero-illustration--light { display: none; }
+:root[data-theme="dark"] .profile-hero-illustration--dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .profile-hero-illustration--light { display: none; }
+  :root:not([data-theme="light"]) .profile-hero-illustration--dark { display: block; }
+}
+/* Bio: reads as a full-width statement rather than a narrow reading column. */
+#bio p { max-width: none; }
+
+/* ---- 404 ---- */
+.error-page { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
+.error-page h1 { font-size: clamp(2.3rem, 10vw, 8rem); }
+
+/* ---- Utility ---- */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0 !important; }
+.list-plain li { margin-bottom: 0.5em; }
+.list-check li { position: relative; padding-left: 1.4em; margin-bottom: 0.5em; }
+.list-check li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }

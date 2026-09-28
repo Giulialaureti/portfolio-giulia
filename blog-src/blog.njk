@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+title: Blog
+description: Riflessioni su UX, design inclusivo ed esperienze culturali.
+navActive: blog
+---
+<section class="hero wrap" style="padding-bottom: 0;">
+  <div class="hero-content">
+    <span class="eyebrow">Blog</span>
+    <h1>Articoli e riflessioni.</h1>
+  </div>
+</section>
+
+<div class="wrap" style="padding-bottom: var(--space-5);">
+  {% set posts = collections.posts | reverse %}
+  {% if posts.length %}
+  <div class="project-gallery" style="margin-top: var(--space-5);">
+    {% for post in posts %}
+    <a class="project-tile" href="{{ post.url }}">
+      {% if post.data.cover %}
+      <figure class="project-tile-figure">
+        <img src="{{ post.data.cover }}" alt="" loading="lazy" width="1280" height="720">
+      </figure>
+      {% endif %}
+      <div class="project-tile-body">
+        <span class="meta">{{ post.data.date | formatDateIt }}</span>
+        <h3>{{ post.data.title }}</h3>
+        <span class="project-tile-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="lede" style="margin-top: var(--space-5);">I primi articoli arrivano presto.</p>
+  {% endif %}
+</div>

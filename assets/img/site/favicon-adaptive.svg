@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Pittogramma GL con l spigolosa</title>
+  <desc id="desc">Il pittogramma di Giulia: un cerchio morbido intagliato da una forma geometrica netta che suggerisce le iniziali g e l. Si adatta al tema chiaro/scuro del browser per restare sempre leggibile.</desc>
+  <defs>
+    <mask id="gl-cut">
+      <rect width="512" height="512" fill="#fff"/>
+      <path
+        d="M 451 91
+           L 165 216
+           L 288 378
+           L 374 342
+           L 305 251
+           L 486 172
+           Z"
+        fill="#000"
+      />
+    </mask>
+  </defs>
+  <style>
+    .gl-fill { fill: #30343F; }
+    @media (prefers-color-scheme: dark) {
+      .gl-fill { fill: #FFFFFF; }
+    }
+  </style>
+  <circle cx="256" cy="256" r="224" class="gl-fill" mask="url(#gl-cut)"/>
+</svg>

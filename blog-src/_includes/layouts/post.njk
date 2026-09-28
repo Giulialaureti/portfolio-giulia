@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+navActive: blog
+---
+<section class="cs-hero wrap">
+  <span class="eyebrow">Articolo · {{ date | formatDateIt }}</span>
+  <h1>{{ title }}</h1>
+  {% if description %}<p class="cs-subtitle">{{ description }}</p>{% endif %}
+
+  {% if cover %}
+  <figure class="cs-figure cs-hero-image">
+    <img src="{{ cover }}" alt="" width="1200" height="800">
+  </figure>
+  {% endif %}
+</section>
+
+<div class="wrap">
+  <div class="cs-body section">
+    {{ content | safe }}
+  </div>
+</div>
+
+<section class="cs-next wrap">
+  <a href="/blog/">
+    <span class="eyebrow">← Torna al blog</span>
+    <h3>Tutti gli articoli</h3>
+  </a>
+</section>

@@ -1,0 +1,28 @@
+# Pannello di gestione contenuti (Decap CMS).
+#
+# Da completare dopo aver creato il repository GitHub e l'account DecapBridge
+# (vedi le istruzioni ricevute da Claude): sostituire i due segnaposto qui sotto.
+
+backend:
+  name: git-gateway
+  repo: TUO-UTENTE-GITHUB/TUO-REPOSITORY # es. giulialaureti/portfolio-giulia
+  branch: main
+  identity_url: https://auth.decapbridge.com/sites/TUO-SITE-ID-DECAPBRIDGE
+  gateway_url: https://gateway.decapbridge.com
+
+media_folder: "assets/img/blog"
+public_folder: "/assets/img/blog"
+
+collections:
+  - name: "blog"
+    label: "Articoli"
+    label_singular: "Articolo"
+    folder: "blog-src/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titolo", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Descrizione breve", name: "description", widget: "text", required: false, hint: "Compare sotto il titolo e nelle anteprime social." }
+      - { label: "Immagine di copertina", name: "cover", widget: "image", required: false }
+      - { label: "Contenuto", name: "body", widget: "markdown" }
