@@ -1139,11 +1139,27 @@ figcaption {
 
 /* ---- Ecosystem diagram (Borghi) ---- */
 /* Each node+its arrow is grouped into one inline-flex "step" so the two
-   always wrap as a unit — the arrow can never land alone at the start
-   or end of a line, at any width, without needing a separate mobile
-   layout (a full vertical stack was correct but wasted a lot of height). */
+   never separate. On desktop they wrap into rows; below 620px a wrapped
+   arrow still reads oddly (it points at nothing once it lands at a row's
+   end), so the row becomes a single horizontally-scrollable strip instead
+   — every arrow keeps pointing straight at the node that follows it. */
 .ecosystem { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-2); align-items: center; margin-top: var(--space-4); }
 .ecosystem-step { display: inline-flex; align-items: center; gap: var(--space-2); }
+@media (max-width: 619px) {
+  .ecosystem {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    margin-inline: calc(-1 * var(--space-3));
+    padding-inline: var(--space-3);
+    padding-bottom: var(--space-2);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--space-3), #000 calc(100% - var(--space-5)), transparent 100%);
+  }
+  .ecosystem-step { flex-shrink: 0; scroll-snap-align: start; }
+  .ecosystem::-webkit-scrollbar { height: 4px; }
+  .ecosystem::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 999px; }
+}
 .ecosystem-node {
   font-family: var(--font-sans);
   font-weight: 700;
