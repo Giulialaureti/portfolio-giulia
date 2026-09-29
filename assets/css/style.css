@@ -1242,3 +1242,29 @@ figcaption {
 .list-plain li { margin-bottom: 0.5em; }
 .list-check li { position: relative; padding-left: 1.4em; margin-bottom: 0.5em; }
 .list-check li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+
+/* ---- Cookie consent banner ---- */
+.cookie-banner {
+  position: fixed;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 200;
+  max-width: 40rem;
+  margin-inline: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 40px rgba(20, 20, 40, 0.18);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.cookie-banner p { margin: 0; font-size: 0.92rem; color: var(--text); }
+.cookie-banner-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.cookie-banner-actions .btn { padding: 0.7em 1.4em; font-size: 0.8rem; }
+@media (min-width: 700px) {
+  .cookie-banner { flex-direction: row; align-items: center; justify-content: space-between; }
+  .cookie-banner-actions { flex-shrink: 0; }
+}
