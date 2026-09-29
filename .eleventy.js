@@ -9,6 +9,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "progetti.html": "progetti.html" });
   eleventyConfig.addPassthroughCopy({ "404.html": "404.html" });
   eleventyConfig.addPassthroughCopy({ "progetti": "progetti" });
+  eleventyConfig.addPassthroughCopy({ "sitemap.xml": "sitemap.xml" });
+  eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
+  eleventyConfig.addPassthroughCopy({ "llms.txt": "llms.txt" });
 
   eleventyConfig.addFilter("formatDateIt", function (dateObj) {
     return new Date(dateObj).toLocaleDateString("it-IT", {

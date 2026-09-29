@@ -1,0 +1,25 @@
+# Giulia Laureti
+
+> Experience Designer specializzata in UX research, progettazione digitale, accessibilità ed esperienze culturali partecipative. Lavora come freelance dal 2021.
+
+Giulia Laureti progetta esperienze che connettono persone, cultura e tecnologia, lavorando su UX research, progettazione digitale inclusiva ed esperienze culturali. Porta la stessa attenzione alle persone e ai contesti nella formazione universitaria e nella progettazione di iniziative culturali partecipative.
+
+## Profilo
+
+- [Profilo](https://giulialaureti.netlify.app/profilo.html): percorso professionale, approccio, competenze, esperienze e formazione.
+- [CV](https://giulialaureti.netlify.app/assets/cv/Giulia-Laureti-CV.pdf): curriculum completo in PDF.
+
+## Progetti
+
+- [Tutti i progetti](https://giulialaureti.netlify.app/progetti.html): panoramica visiva dei progetti.
+- [MusA — Progettare un'esperienza artistica oltre la vista](https://giulialaureti.netlify.app/progetti/musa.html): ricerca, inclusive design e prototipazione di un'esperienza fisico-digitale multisensoriale.
+- [Sito e blog per una psicologa](https://giulialaureti.netlify.app/progetti/psicologa.html): brand identity, UX/UI e sviluppo WordPress per una presenza professionale gestibile in autonomia.
+- [Sito per un gruppo di ricerca universitario](https://giulialaureti.netlify.app/progetti/gruppo-ricerca.html): architettura dell'informazione e sviluppo per un sito istituzionale.
+- [Piattaforma editoriale e-commerce](https://giulialaureti.netlify.app/progetti/borghi-magazine.html): UX/UI e sviluppo di una piattaforma che unisce magazine, blog, abbonamenti ed e-commerce.
+- [Roma in Prospettiva](https://giulialaureti.netlify.app/progetti/roma-in-prospettiva.html): mostra fotografica a fruizione fisica e digitale, curatela ed experience design.
+- [ASIERI](https://giulialaureti.netlify.app/progetti/asieri.html): brand e sito WordPress per un'associazione di ricercatori.
+
+## Contatti
+
+- Email: giulia.laureti97@gmail.com
+- [LinkedIn](https://www.linkedin.com/in/giulia-laureti-b13933193/)
