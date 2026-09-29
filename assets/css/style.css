@@ -1138,7 +1138,16 @@ figcaption {
 }
 
 /* ---- Ecosystem diagram (Borghi) ---- */
+/* Below 620px, a node+arrow pair can wrap apart at almost any width
+   (the arrow left stranded at a line's start or end) since flex-wrap
+   has no concept of keeping the two together. A vertical flow sidesteps
+   the issue entirely: node, arrow, node, arrow... always stacks in
+   that order with no ambiguous wrap point. */
 .ecosystem { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-4); }
+@media (max-width: 619px) {
+  .ecosystem { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .ecosystem-arrow { display: block; margin-inline-start: 1.5em; transform: rotate(90deg); }
+}
 .ecosystem-node {
   font-family: var(--font-sans);
   font-weight: 700;
