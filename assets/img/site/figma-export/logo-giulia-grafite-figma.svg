@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Pittogramma GL grafite</title>
+  <desc id="desc">Versione a percorso singolo (nessuna maschera), pensata per l'importazione in Figma.</desc>
+  <path fill="#30343F" fill-rule="evenodd" d="M480,256 A224,224 0 1,0 32,256 A224,224 0 1,0 480,256 Z M451,91 L165,216 L288,378 L374,342 L305,251 L486,172 Z"/>
+</svg>
