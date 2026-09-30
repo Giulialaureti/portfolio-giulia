@@ -414,6 +414,17 @@ a[href*="linkedin.com"]::after {
   white-space: nowrap;
 }
 .brand img { width: 30px; height: 30px; flex-shrink: 0; }
+/* Logo swaps between graphite (light) and lilac (dark) to stay legible
+   against the sidebar background in both themes — same dual check as the
+   theme-toggle icons: an explicit choice, or the OS preference when the
+   visitor hasn't overridden it to light. */
+.brand-logo--dark { display: none; }
+:root[data-theme="dark"] .brand-logo--light { display: none; }
+:root[data-theme="dark"] .brand-logo--dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand-logo--light { display: none; }
+  :root:not([data-theme="light"]) .brand-logo--dark { display: block; }
+}
 /* The full name always stays on screen, in full — never clipped or
    ellipsized. Below this width, the fixed-size theme/menu buttons next to
    it would otherwise leave too little room, so the name (and mark) shrink
