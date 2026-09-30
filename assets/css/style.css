@@ -1009,23 +1009,6 @@ h1 + .lede, h2 + .lede, h1 + p, h2 + p { margin-top: var(--space-3); }
   max-width: none;
   margin-top: var(--space-3);
 }
-/* CV preview: an inline PDF viewer, sized like a document rather than a
-   photo, so a click on "CV" previews it in place instead of forcing a
-   download straight away — the download button underneath is the only
-   thing that actually saves the file. */
-.cv-preview {
-  display: block;
-  width: 100%;
-  height: 75vh;
-  min-height: 420px;
-  max-height: 960px;
-  margin-top: var(--space-4);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  background: var(--surface-tint);
-}
-.cv-actions { margin-top: var(--space-4); }
-
 /* .cs-figure.cs-hero-image (not just .cs-hero-image) to outrank the generic
    `figure.cs-figure { margin: 0; }` reset below, which would otherwise zero
    this back out. */

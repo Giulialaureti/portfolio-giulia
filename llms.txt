@@ -7,7 +7,7 @@ Giulia Laureti progetta esperienze che connettono persone, cultura e tecnologia,
 ## Profilo
 
 - [Profilo](https://giulialaureti.netlify.app/profilo.html): percorso professionale, approccio, competenze, esperienze e formazione.
-- [CV](https://giulialaureti.netlify.app/cv.html): curriculum completo, con anteprima e download in PDF.
+- [CV](https://giulialaureti.netlify.app/assets/cv/Giulia-Laureti-CV.pdf): curriculum completo in PDF.
 
 ## Progetti
 
