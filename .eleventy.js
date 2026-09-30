@@ -9,6 +9,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "progetti.html": "progetti.html" });
   eleventyConfig.addPassthroughCopy({ "404.html": "404.html" });
   eleventyConfig.addPassthroughCopy({ "privacy.html": "privacy.html" });
+  eleventyConfig.addPassthroughCopy({ "cv.html": "cv.html" });
   eleventyConfig.addPassthroughCopy({ "progetti": "progetti" });
   eleventyConfig.addPassthroughCopy({ "en": "en" });
   eleventyConfig.addPassthroughCopy({ "sitemap.xml": "sitemap.xml" });

@@ -6,9 +6,20 @@
 <link rel="preload" href="../assets/fonts/Manrope-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/Hanken-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
-<title>Page not found — Giulia Laureti</title>
-<meta name="description" content="The page you're looking for doesn't exist or has been moved.">
-<meta name="robots" content="noindex">
+<title>CV — Giulia Laureti</title>
+<meta name="description" content="Giulia Laureti's CV: professional background, experience and education, previewable and downloadable as a PDF.">
+<link rel="canonical" href="https://giulialaureti.netlify.app/en/cv.html">
+<link rel="alternate" hreflang="it" href="https://giulialaureti.netlify.app/cv.html">
+<link rel="alternate" hreflang="en" href="https://giulialaureti.netlify.app/en/cv.html">
+<link rel="alternate" hreflang="x-default" href="https://giulialaureti.netlify.app/cv.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="CV — Giulia Laureti">
+<meta property="og:url" content="https://giulialaureti.netlify.app/en/cv.html">
+<meta property="og:description" content="Giulia Laureti's CV: professional background, experience and education.">
+<meta property="og:image" content="https://giulialaureti.netlify.app/assets/img/site/og-image-en.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="icon" href="../assets/img/site/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="../assets/img/site/favicon-adaptive.svg">
 <link rel="apple-touch-icon" href="../assets/img/site/favicon-180.png">
@@ -24,7 +35,7 @@
       <img class="brand-logo brand-logo--dark" src="../assets/img/site/logo-giulia-lilac.svg" alt="" width="30" height="30">
       <span class="brand-name">Giulia Laureti</span>    </a>
     <div class="sidebar-top-actions">
-      <a class="lang-toggle" data-lang-switch href="/404.html">IT</a>
+      <a class="lang-toggle" data-lang-switch href="/cv.html">IT</a>
       <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Turn on dark mode">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -37,7 +48,7 @@
   <nav class="main-nav" id="main-nav" aria-label="Main navigation">
       <a href="progetti.html">Projects</a>
       <a href="profilo.html">Profile</a>
-      <a href="cv.html">CV</a>
+      <a href="cv.html" aria-current="page">CV</a>
       <a href="index.html#contact">Contact</a>
     </nav>
   <div class="sidebar-foot">
@@ -46,15 +57,28 @@
 </header>
 
 <main id="contenuto">
-  <div class="wrap error-page">
-    <span class="eyebrow">Error 404</span>
-    <h1>This page isn't here anymore.</h1>
-    <p class="lede">The link you followed may have changed or is no longer active. You can go back to the homepage or explore the projects.</p>
-    <div class="actions" style="margin-top: var(--space-4);">
-      <a class="btn btn-primary" href="index.html">Back to homepage</a>
-      <a class="btn btn-outline" href="progetti.html">Explore the projects</a>
+
+  <section class="cs-hero wrap">
+    <span class="eyebrow">Curriculum Vitae</span>
+    <h1>My CV</h1>
+    <p class="cs-subtitle">Professional background, experience and education.</p>
+  </section>
+
+  <div class="wrap">
+    <div class="cs-body section">
+
+      <div class="cs-block">
+        <iframe class="cv-preview" src="../assets/cv/Giulia-Laureti-CV.pdf" title="Preview of Giulia Laureti's CV in PDF"></iframe>
+        <p class="meta">If the preview doesn't load, you can <a class="link-underline" href="../assets/cv/Giulia-Laureti-CV.pdf" target="_blank" rel="noopener noreferrer">open the PDF in a new tab</a>.</p>
+
+        <div class="actions cv-actions">
+          <a class="btn btn-primary" href="../assets/cv/Giulia-Laureti-CV.pdf" download>Download the CV as PDF</a>
+        </div>
+      </div>
+
     </div>
   </div>
+
 </main>
 
 <footer class="site-footer">
