@@ -17,7 +17,12 @@ Giulia Laureti progetta esperienze che connettono persone, cultura e tecnologia,
 - [Sito per un gruppo di ricerca universitario](https://giulialaureti.netlify.app/progetti/gruppo-ricerca.html): architettura dell'informazione e sviluppo per un sito istituzionale.
 - [Piattaforma editoriale e-commerce](https://giulialaureti.netlify.app/progetti/borghi-magazine.html): UX/UI e sviluppo di una piattaforma che unisce magazine, blog, abbonamenti ed e-commerce.
 - [Roma in Prospettiva](https://giulialaureti.netlify.app/progetti/roma-in-prospettiva.html): mostra fotografica a fruizione fisica e digitale, curatela ed experience design.
+- [Il mio sito personale](https://giulialaureti.netlify.app/progetti/portfolio-personale.html): architettura dell'informazione, design system, sviluppo, SEO e privacy per questo stesso portfolio.
 - [ASIERI](https://giulialaureti.netlify.app/progetti/asieri.html): brand e sito WordPress per un'associazione di ricercatori.
+
+## Lingue
+
+Il sito è disponibile anche in inglese, a partire da [https://giulialaureti.netlify.app/en/](https://giulialaureti.netlify.app/en/).
 
 ## Contatti
 

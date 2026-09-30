@@ -3,6 +3,21 @@
 
   var GA_ID = "G-66H31E9R32";
   var STORAGE_KEY = "cookie-consent";
+  var isEn = location.pathname === "/en" || location.pathname.indexOf("/en/") === 0;
+  var privacyHref = isEn ? "/en/privacy.html" : "/privacy.html";
+  var copy = isEn
+    ? {
+        text: 'I only use necessary technical cookies and, if you consent, analytics cookies (Google Analytics) to understand how the site is used. <a href="' + privacyHref + '">Learn more</a>.',
+        reject: "Reject",
+        accept: "Accept",
+        ariaLabel: "Cookie preferences",
+      }
+    : {
+        text: 'Uso solo cookie tecnici necessari e, se acconsenti, cookie analitici (Google Analytics) per capire come viene usato il sito. <a href="' + privacyHref + '">Leggi di più</a>.',
+        reject: "Rifiuta",
+        accept: "Accetta",
+        ariaLabel: "Preferenze cookie",
+      };
 
   function loadAnalytics() {
     if (window.__gaLoaded) return;
@@ -30,13 +45,12 @@
     var wrap = document.createElement("div");
     wrap.className = "cookie-banner";
     wrap.setAttribute("role", "dialog");
-    wrap.setAttribute("aria-label", "Preferenze cookie");
+    wrap.setAttribute("aria-label", copy.ariaLabel);
     wrap.innerHTML =
-      '<p>Uso solo cookie tecnici necessari e, se acconsenti, cookie analitici (Google Analytics) per capire come viene usato il sito. ' +
-      '<a href="/privacy.html">Leggi di più</a>.</p>' +
+      "<p>" + copy.text + "</p>" +
       '<div class="cookie-banner-actions">' +
-      '<button type="button" class="btn btn-outline" data-cookie-reject>Rifiuta</button>' +
-      '<button type="button" class="btn btn-primary" data-cookie-accept>Accetta</button>' +
+      '<button type="button" class="btn btn-outline" data-cookie-reject>' + copy.reject + "</button>" +
+      '<button type="button" class="btn btn-primary" data-cookie-accept>' + copy.accept + "</button>" +
       "</div>";
     document.body.appendChild(wrap);
 
