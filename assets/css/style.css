@@ -332,10 +332,11 @@ mark.hl.hl-lilac {
 .link-underline:hover { opacity: 0.65; }
 
 /* Small arrow after any link that leaves the normal page flow: downloads,
-   mailto, or an external destination like LinkedIn. */
+   mailto, or an external destination like LinkedIn or the CV PDF. */
 a[download]::after,
 a[href^="mailto:"]::after,
-a[href*="linkedin.com"]::after {
+a[href*="linkedin.com"]::after,
+a[target="_blank"]::after {
   content: "";
   display: inline-block;
   width: 0.6em;
