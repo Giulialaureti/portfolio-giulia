@@ -117,4 +117,19 @@
       }
     }, { passive: true });
   }
+
+  // Analytics: count clicks on any CV link. window.gtag only exists once the
+  // visitor has accepted cookies (see cookie-consent.js), so nothing is sent
+  // otherwise. Uses a custom event name: GA's own "file_download" is already
+  // recorded automatically by Enhanced measurement and would double count.
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest && event.target.closest("a[href*='Giulia-Laureti-CV']");
+    if (!link || typeof window.gtag !== "function") return;
+    var place = link.closest("footer") ? "footer" : link.closest("nav") ? "menu" : "page";
+    window.gtag("event", "cv_download", {
+      file_name: link.getAttribute("href").split("/").pop(),
+      language: link.getAttribute("href").indexOf("-EN.pdf") !== -1 ? "en" : "it",
+      link_location: place,
+    });
+  });
 })();
